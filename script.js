@@ -11,6 +11,12 @@ function showBell() {
   document.getElementById("screen1").classList.add("hidden");
   document.getElementById("screen2").classList.remove("hidden");
 
+  const instruction = document.getElementById("instruction");
+  instruction.classList.remove("hidden");
+  setTimeout(() => {
+    instruction.classList.add("hidden");
+  }, 1500);
+
   const audio = document.getElementById("bellSound");
   audio.play().then(() => {
     audio.pause();
@@ -46,18 +52,22 @@ window.addEventListener('devicemotion', function(event) {
 });
 
 function shakeBell() {
+  if (shaking) return;
+
   shaking = true;
   const bell = document.getElementById("bell");
   const audio = document.getElementById("bellSound");
 
   bell.classList.add("shake");
-  audio.currentTime = 0;
-  audio.play().catch(() => {});
+  try {
+    audio.currentTime = 0;
+    audio.play();
+  } catch (e) {}
 
   setTimeout(() => {
     bell.classList.remove("shake");
     moveToDoor();
-  }, 1500);
+  }, 1000);
 }
 
 function moveToDoor() {
