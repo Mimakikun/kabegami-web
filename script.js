@@ -5,26 +5,25 @@ let shaking = false;
 function showBell() {
   wish = document.getElementById("wishInput").value.trim();
   if (wish === "") {
-    alert("お願いごとを入力してください");
-    return;
+    return; // ポップアップ出さずに終了するだけ！
   }
   document.getElementById("screen1").classList.add("hidden");
 
   const screen2 = document.getElementById("screen2");
-  screen2.classList.add("show"); // 鈴画面を表示
+  screen2.classList.add("show");
 
   motionAllowed = false;
 
   setTimeout(() => {
     const instruction = document.getElementById("instruction");
-    instruction.classList.add("show"); // テキストを表示（白文字）
+    instruction.classList.add("show");
 
     setTimeout(() => {
       instruction.classList.remove("show");
-      motionAllowed = true; // 3秒後に振動許可
+      motionAllowed = true;
     }, 3000);
 
-  }, 100); // 鈴画面に切り替え後100ms待つ
+  }, 100);
 
   const audio = document.getElementById("bellSound");
   audio.play().then(() => {
@@ -38,7 +37,7 @@ function showBell() {
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
         if (permissionState !== "granted") {
-          alert("デバイスのモーションアクセスが許可されませんでした。");
+          // モーション許可されなかった場合も何もしない
         }
       })
       .catch(console.error);
