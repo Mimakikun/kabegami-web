@@ -16,9 +16,15 @@ function showBell() {
   motionAllowed = false;
 
   setTimeout(() => {
-    alert("スマホを振ってお祈りしよう！"); // ポップアップ表示
-    motionAllowed = true; // OK後、振動を許可
-  }, 300); // 少し待ってからポップアップ
+    const instruction = document.getElementById("instruction");
+    instruction.classList.add("show"); // テキストを表示（白文字）
+
+    setTimeout(() => {
+      instruction.classList.remove("show");
+      motionAllowed = true; // 3秒後に振動許可
+    }, 3000);
+
+  }, 100); // 鈴画面に切り替え後100ms待つ
 
   const audio = document.getElementById("bellSound");
   audio.play().then(() => {
