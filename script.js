@@ -11,19 +11,6 @@ function showBell() {
   document.getElementById("screen1").classList.add("hidden");
   document.getElementById("screen2").classList.remove("hidden");
 
-  motionAllowed = false; // 振動を一時無効
-
-  setTimeout(() => {
-    const instruction = document.getElementById("instruction");
-    instruction.classList.remove("hidden");
-
-    setTimeout(() => {
-      instruction.classList.add("hidden");
-      motionAllowed = true; // 1.5秒後に振動有効
-    }, 1500);
-
-  }, 100); // 鈴画面に切り替わってから100ms後に表示
-
   const audio = document.getElementById("bellSound");
   audio.play().then(() => {
     audio.pause();
@@ -36,14 +23,14 @@ function showBell() {
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
         if (permissionState === "granted") {
-          // motionAllowed = true; ここでは設定しない
+          motionAllowed = true;
         } else {
           alert("デバイスのモーションアクセスが許可されませんでした。");
         }
       })
       .catch(console.error);
   } else {
-    // motionAllowed = true; ここでも設定しない
+    motionAllowed = true;
   }
 }
 
@@ -59,22 +46,18 @@ window.addEventListener('devicemotion', function(event) {
 });
 
 function shakeBell() {
-  if (shaking) return;
-
   shaking = true;
   const bell = document.getElementById("bell");
   const audio = document.getElementById("bellSound");
 
   bell.classList.add("shake");
-  try {
-    audio.currentTime = 0;
-    audio.play();
-  } catch (e) {}
+  audio.currentTime = 0;
+  audio.play().catch(() => {});
 
   setTimeout(() => {
     bell.classList.remove("shake");
     moveToDoor();
-  }, 1000);
+  }, 1500);
 }
 
 function moveToDoor() {

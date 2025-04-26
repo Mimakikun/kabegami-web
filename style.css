@@ -63,7 +63,7 @@ button {
   width: 120px;
   margin-top: 50%;
   transform: translateY(-50%);
-  transform-origin: top center;
+  transform-origin: top center; /* 上端を支点に揺れる！ */
 }
 #bell.shake {
   animation: shake 1s infinite;
@@ -79,14 +79,4 @@ button {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-}
-.instruction {
-  position: absolute;
-  top: 30%;
-  width: 100%;
-  text-align: center;
-  font-size: 1.5rem;
-  color: #a52a2a;
-  font-weight: bold;
-  z-index: 3;
 }
