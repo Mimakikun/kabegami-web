@@ -11,6 +11,14 @@ function showBell() {
   document.getElementById("screen1").classList.add("hidden");
   document.getElementById("screen2").classList.remove("hidden");
 
+  const audio = document.getElementById("bellSound");
+  audio.play().then(() => {
+    audio.pause();
+    audio.currentTime = 0;
+  }).catch(() => {
+    console.log("Audio preload skipped.");
+  });
+
   if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
@@ -44,7 +52,7 @@ function shakeBell() {
 
   bell.classList.add("shake");
   audio.currentTime = 0;
-  audio.play();
+  audio.play().catch(() => {});
 
   setTimeout(() => {
     bell.classList.remove("shake");
