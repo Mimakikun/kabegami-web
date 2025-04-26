@@ -18,17 +18,14 @@ body, html {
   text-align: center;
   overflow: hidden;
 }
+#screen1, #screen2 {
+  background-image: url("assets/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .hidden {
   display: none;
-}
-.bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
 }
 .content {
   z-index: 2;
@@ -63,24 +60,24 @@ button {
   cursor: pointer;
 }
 #bell {
-  width: 100px;
+  width: 120px;
   margin-top: 50%;
   transform: translateY(-50%);
 }
 #bell.shake {
-  animation: shake 0.5s;
+  animation: shake 1s infinite;
 }
 @keyframes shake {
-  0% { transform: rotate(0); }
-  25% { transform: rotate(15deg); }
-  50% { transform: rotate(-15deg); }
-  75% { transform: rotate(10deg); }
-  100% { transform: rotate(0); }
+  0% { transform: translateY(-50%) rotate(0); }
+  25% { transform: translateY(-50%) rotate(15deg); }
+  50% { transform: translateY(-50%) rotate(-15deg); }
+  75% { transform: translateY(-50%) rotate(10deg); }
+  100% { transform: translateY(-50%) rotate(0); }
 }
-.door, .god {
-  width: 80%;
-  max-width: 300px;
-  margin-top: 2rem;
+.door {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
 }
 .godText {
   font-size: 1.5rem;

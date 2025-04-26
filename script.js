@@ -1,5 +1,6 @@
 let wish = "";
 let motionAllowed = false;
+let shaking = false;
 
 function showBell() {
   wish = document.getElementById("wishInput").value.trim();
@@ -26,10 +27,10 @@ function showBell() {
 }
 
 window.addEventListener('devicemotion', function(event) {
-  if (!motionAllowed) return;
+  if (!motionAllowed || shaking) return;
   if (!document.getElementById("screen2").classList.contains("hidden")) {
     const acceleration = event.accelerationIncludingGravity;
-    const threshold = 15;
+    const threshold = 12;
     if (acceleration && (Math.abs(acceleration.x) > threshold || Math.abs(acceleration.y) > threshold)) {
       shakeBell();
     }
@@ -37,15 +38,18 @@ window.addEventListener('devicemotion', function(event) {
 });
 
 function shakeBell() {
+  shaking = true;
   const bell = document.getElementById("bell");
   const audio = document.getElementById("bellSound");
+
   bell.classList.add("shake");
+  audio.currentTime = 0;
   audio.play();
 
   setTimeout(() => {
     bell.classList.remove("shake");
     moveToDoor();
-  }, 1000);
+  }, 1500);
 }
 
 function moveToDoor() {
@@ -54,7 +58,7 @@ function moveToDoor() {
 
   setTimeout(() => {
     openDoor();
-  }, 1500);
+  }, 1200);
 }
 
 function openDoor() {
