@@ -18,14 +18,20 @@ body, html {
   text-align: center;
   overflow: hidden;
 }
-#screen1, #screen2 {
+#screen1, #screen2, #screen3, #screen4 {
   background-image: url("assets/background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 .hidden {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 .content {
   z-index: 2;
@@ -63,7 +69,7 @@ button {
   width: 120px;
   margin-top: 50%;
   transform: translateY(-50%);
-  transform-origin: top center; /* 上端を支点に揺れる！ */
+  transform-origin: top center;
 }
 #bell.shake {
   animation: shake 1s infinite;
@@ -79,4 +85,14 @@ button {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
+}
+.instruction {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: bold;
+  z-index: 3;
 }
