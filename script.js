@@ -11,18 +11,18 @@ function showBell() {
   document.getElementById("screen1").classList.add("hidden");
   document.getElementById("screen2").classList.remove("hidden");
 
-  motionAllowed = false; // 振動を一時無効
+  motionAllowed = false; // 一時振動禁止
 
   setTimeout(() => {
     const instruction = document.getElementById("instruction");
-    instruction.classList.remove("hidden");
+    instruction.classList.add("show"); // showクラス追加で表示する！
 
     setTimeout(() => {
-      instruction.classList.add("hidden");
-      motionAllowed = true; // 1.5秒後に振動有効
+      instruction.classList.remove("show");
+      motionAllowed = true; // 1.5秒後に振動許可
     }, 1500);
 
-  }, 100); // 鈴画面に切り替わってから100ms後に表示
+  }, 100); // 画面切り替え後に100ms待つ
 
   const audio = document.getElementById("bellSound");
   audio.play().then(() => {
@@ -35,15 +35,11 @@ function showBell() {
   if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
-        if (permissionState === "granted") {
-          // motionAllowed = true; ここでは設定しない
-        } else {
+        if (permissionState !== "granted") {
           alert("デバイスのモーションアクセスが許可されませんでした。");
         }
       })
       .catch(console.error);
-  } else {
-    // motionAllowed = true; ここでも設定しない
   }
 }
 
