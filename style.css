@@ -92,7 +92,7 @@ button {
   width: 100%;
   text-align: center;
   font-size: 1.5rem;
-  color: #ffffff; /* ← 白文字に変更済み！ */
+  color: #a52a2a;
   font-weight: bold;
   z-index: 3;
 }
