@@ -11,20 +11,14 @@ function showBell() {
   document.getElementById("screen1").classList.add("hidden");
 
   const screen2 = document.getElementById("screen2");
-  screen2.classList.add("show"); // 鈴画面をきちんと表示！
+  screen2.classList.add("show"); // 鈴画面を表示
 
-  motionAllowed = false; // 振動一時禁止
+  motionAllowed = false;
 
   setTimeout(() => {
-    const instruction = document.getElementById("instruction");
-    instruction.classList.add("show"); // テキストを表示
-
-    setTimeout(() => {
-      instruction.classList.remove("show");
-      motionAllowed = true; // 3秒後に振動許可
-    }, 3000);
-
-  }, 100); // 画面切り替え後100ms待つ
+    alert("スマホを振ってお祈りしよう！"); // ポップアップ表示
+    motionAllowed = true; // OK後、振動を許可
+  }, 300); // 少し待ってからポップアップ
 
   const audio = document.getElementById("bellSound");
   audio.play().then(() => {
