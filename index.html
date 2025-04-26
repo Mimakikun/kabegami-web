@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>かべがみさま</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="screen1" class="screen">
+    <img src="assets/background.png" class="bg" alt="background">
+    <div class="content">
+      <h1 class="logo">かべがみさま</h1>
+      <input type="text" id="wishInput" placeholder="お願いごとを入力してください">
+      <button id="offeringButton">お賽銭</button>
+    </div>
+  </div>
+
+  <div id="screen2" class="screen hidden">
+    <img src="assets/background.png" class="bg" alt="background">
+    <img id="bell" src="assets/bell.png" alt="bell">
+  </div>
+
+  <div id="screen3" class="screen hidden">
+    <img src="assets/door_closed.png" class="door" id="door">
+  </div>
+
+  <div id="screen4" class="screen hidden">
+    <img src="assets/door_open.png" class="door">
+    <img src="assets/god.png" class="god">
+    <p class="godText">その想い、見守っていますよ。</p>
+  </div>
+
+  <audio id="bellSound" src="https://freesound.org/data/previews/415/415209_5121236-lq.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
