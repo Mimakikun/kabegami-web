@@ -13,8 +13,12 @@ function showBell() {
 
   const instruction = document.getElementById("instruction");
   instruction.classList.remove("hidden");
+  
+  // 振動検知を一時的に無効化
+  motionAllowed = false;
   setTimeout(() => {
     instruction.classList.add("hidden");
+    motionAllowed = true; // 1.5秒後に振動検知を許可
   }, 1500);
 
   const audio = document.getElementById("bellSound");
@@ -29,14 +33,14 @@ function showBell() {
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
         if (permissionState === "granted") {
-          motionAllowed = true;
+          // motionAllowed = true; ← ここでは許可しない、上で管理
         } else {
           alert("デバイスのモーションアクセスが許可されませんでした。");
         }
       })
       .catch(console.error);
   } else {
-    motionAllowed = true;
+    // motionAllowed = true; ← ここでは許可しない、上で管理
   }
 }
 
