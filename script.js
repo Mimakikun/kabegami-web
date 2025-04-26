@@ -9,22 +9,20 @@ function showBell() {
     return;
   }
   document.getElementById("screen1").classList.add("hidden");
+  document.getElementById("screen2").classList.remove("hidden");
 
-  const screen2 = document.getElementById("screen2");
-  screen2.classList.add("show"); // 鈴画面をきちんと表示！
-
-  motionAllowed = false; // 振動一時禁止
+  motionAllowed = false; // 振動を一時無効
 
   setTimeout(() => {
     const instruction = document.getElementById("instruction");
-    instruction.classList.add("show"); // テキストを表示
+    instruction.classList.remove("hidden");
 
     setTimeout(() => {
-      instruction.classList.remove("show");
-      motionAllowed = true; // 3秒後に振動許可
-    }, 3000);
+      instruction.classList.add("hidden");
+      motionAllowed = true; // 1.5秒後に振動有効
+    }, 1500);
 
-  }, 100); // 画面切り替え後100ms待つ
+  }, 100); // 鈴画面に切り替わってから100ms後に表示
 
   const audio = document.getElementById("bellSound");
   audio.play().then(() => {
@@ -37,23 +35,26 @@ function showBell() {
   if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
-        if (permissionState !== "granted") {
+        if (permissionState === "granted") {
+          // motionAllowed = true; ここでは設定しない
+        } else {
           alert("デバイスのモーションアクセスが許可されませんでした。");
         }
       })
       .catch(console.error);
+  } else {
+    // motionAllowed = true; ここでも設定しない
   }
 }
 
 window.addEventListener('devicemotion', function(event) {
   if (!motionAllowed || shaking) return;
-  if (!document.getElementById("screen2").classList.contains("show")) {
-    return;
-  }
-  const acceleration = event.accelerationIncludingGravity;
-  const threshold = 12;
-  if (acceleration && (Math.abs(acceleration.x) > threshold || Math.abs(acceleration.y) > threshold)) {
-    shakeBell();
+  if (!document.getElementById("screen2").classList.contains("hidden")) {
+    const acceleration = event.accelerationIncludingGravity;
+    const threshold = 12;
+    if (acceleration && (Math.abs(acceleration.x) > threshold || Math.abs(acceleration.y) > threshold)) {
+      shakeBell();
+    }
   }
 });
 
@@ -77,8 +78,8 @@ function shakeBell() {
 }
 
 function moveToDoor() {
-  document.getElementById("screen2").classList.remove("show");
-  document.getElementById("screen3").classList.add("show");
+  document.getElementById("screen2").classList.add("hidden");
+  document.getElementById("screen3").classList.remove("hidden");
 
   setTimeout(() => {
     openDoor();
@@ -86,8 +87,8 @@ function moveToDoor() {
 }
 
 function openDoor() {
-  document.getElementById("screen3").classList.remove("show");
-  document.getElementById("screen4").classList.add("show");
+  document.getElementById("screen3").classList.add("hidden");
+  document.getElementById("screen4").classList.remove("hidden");
 }
 
 document.getElementById("offeringButton").addEventListener("click", showBell);
